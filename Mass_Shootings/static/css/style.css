@@ -1,0 +1,58 @@
+/* Main heading */
+h1 {
+    font-family: Mate SC;
+    font-size: 50px;
+    color: #6F2232;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 20px;
+}
+/* Navigation links */
+.nav-link {
+    font-family: Helvetica, sans-serif;
+    color: #1A1A1D;
+    font-weight: bolder;
+}
+/* Font color change when hovered */
+.nav-item a:hover {
+    color: #C3073F;
+}
+/* Caption link font */
+.carousel-caption a {
+    color: #FFFFFF;
+    font-weight: bolder;
+    text-shadow: 2px 2px #6F2232;
+    
+}
+/* Main table */
+.masstable {
+    font-family: Garamond, serif;
+    font-weight: bolder;
+    border-collapse: collapse;
+    width: 100%;
+}
+/* Adds border and padding to all cells */
+.masstable td, .masstable th {
+    border: 1px solid 	lightgray;
+    padding: 5px;
+}
+/* Keeps header row at top when scrolling */
+table thead {
+    position: sticky;
+    inset-block-start: 0;
+}
+/* Every other row light gray */
+.masstable tr:nth-child(even) {
+    background-color: 	#F0F0F0;
+}
+/* Table header row */
+.masstable th {
+    text-align: center;
+    background-color: #4E4E50;
+    color: 	#FFFFFF;
+}
+/* Changes when hovered */
+.masstable tr:hover {
+    background-color: #6F2232;
+    color: 	lightgray;
+}
