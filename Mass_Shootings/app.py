@@ -1,5 +1,6 @@
 import psycopg2
 from sqlalchemy import create_engine
+import pandas as pd
 from flask import Flask, render_template
 from config import db_user, db_password, db_host, db_port, db_name
 
@@ -15,12 +16,13 @@ def index():
     # Return index template
     return render_template("index.html")
 
-@app.route("/api/shooting_data")
-def shooting_data():
+# Route to database table mass_shootings - json
+@app.route("/api/mass_shootings")
+def mass_shootings():
     # connect to our database
     conn = engine.connect()
     # query our database
-    results_df = pd.read_sql('SELECT * FROM TABLE_NAME', conn)
+    results_df = pd.read_sql('SELECT * FROM mass_shootings', conn)
     # convert results to json # orient = 'records' get an dictonary/object for each row of dataframe
     results_json = results_df.to_json(orient='records') 
     # close our database connection

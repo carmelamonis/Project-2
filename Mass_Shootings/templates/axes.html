@@ -1,52 +1,71 @@
 <!DOCTYPE html>
 <html lang="en-us">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" type="image/png" href="../static/images/no_guns.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="../static/images/no_guns.png">
 
-    <title>Us Mass Shootings Visualizations</title>
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
-    <!-- For Carousel -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mate SC">
+  <title>Us Mass Shootings Axes</title>
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/style.css') }}" />
+  <!-- For tabbed -->
+  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mate SC">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/style.css') }}" />
 </head>
 <body>
-    <h1>Mass Shootings Visualizations</h1>
-    <!-- Navigation -->
-    <ul class="nav justify-content-center">
-        <li class="nav-item">
-            <a class="nav-link" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/map">Map</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/axes">Axes</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/data">Data</a>
-        </li>
+  <h1>Mass Shootings Visualizations</h1>
+  <!-- Navigation -->
+  <ul class="nav justify-content-center">
+    <li class="nav-item">
+      <a class="nav-link" href="/">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/map">Map</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/axes">Axes</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/data">Data</a>
+    </li>
+  </ul>
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+      <li class="active"><a class="atab" href="#a_tab" data-toggle="tab">Tab A</a></li>
+      <li><a class="btab" href="#b_tab" data-toggle="tab">Tab B</a></li>
     </ul>
-</body>
-<div class="row">
-    <div class="col-md-12">
-        <div id="axes"></div>
+    <div class="tab-content">
+      <div class="tab-pane active" id="a_tab">
+        <acontent></acontent>
+      </div>
+      <div class="tab-pane" id="b_tab">
+        <bcontent></bcontent>
+      </div>
     </div>
-</div>
+  </div>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="http://d3js.org/d3.v3.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // Disable caching of AJAX responses -Used when debugging
+    $.ajaxSetup ({ cache: false });
+
+    $.getScript("./../static/js/axes.js");
+    $(".atab").click(function(){ a(); })
+  </script>
+  <script>
+    $(".btab").click(function(){ b(); })
+  </script>
+</body>
 
 <script src="https://d3js.org/d3.v5.min.js"></script>
-
 <script src="./../static/js/axes.js"></script>
 
 </html>

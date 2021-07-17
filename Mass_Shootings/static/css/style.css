@@ -17,42 +17,123 @@ h1 {
 .nav-item a:hover {
     color: #C3073F;
 }
-/* Caption link font */
+/* Index: Caption link font */
 .carousel-caption a {
     color: #FFFFFF;
     font-weight: bolder;
     text-shadow: 2px 2px #6F2232;
     
 }
-/* Main table */
+/* Data: Button */
+button.btn.btn-default {
+	background-color: #6F2232;
+	border: none;
+	color: white;
+	padding: 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 15px;
+	margin-bottom: 5px;
+}
+/* Data: Main table */
 .masstable {
     font-family: Garamond, serif;
     font-weight: bolder;
     border-collapse: collapse;
     width: 100%;
 }
-/* Adds border and padding to all cells */
+/* Data: Adds border and padding to all cells */
 .masstable td, .masstable th {
     border: 1px solid 	lightgray;
     padding: 5px;
 }
-/* Keeps header row at top when scrolling */
+/* Data: Keeps header row at top when scrolling */
 table thead {
     position: sticky;
     inset-block-start: 0;
 }
-/* Every other row light gray */
+/* Data: Every other row light gray */
 .masstable tr:nth-child(even) {
     background-color: 	#F0F0F0;
 }
-/* Table header row */
+/* Data: Table header row */
 .masstable th {
     text-align: center;
     background-color: #4E4E50;
     color: 	#FFFFFF;
 }
-/* Changes when hovered */
+/* Data: Changes when hovered */
 .masstable tr:hover {
     background-color: #6F2232;
     color: 	lightgray;
+}
+
+/* 
+Data: Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* Force table to not be like tables anymore */
+	.masstble table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hide table headers (but not display: none;, for accessibility) */
+	.masstablevthead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	.masstable tr { border: 1px solid #ccc; }
+	
+	.masstable td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+	}
+	
+	.masstable td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+	
+	/*
+	Label the data
+	*/
+	.masstable td:nth-of-type(1):before { content: "Id"; }
+	.masstable td:nth-of-type(2):before { content: "Case"; }
+	.masstable td:nth-of-type(3):before { content: "City"; }
+	.masstable td:nth-of-type(4):before { content: "State"; }
+	.masstable td:nth-of-type(5):before { content: "Region"; }
+	.masstable td:nth-of-type(6):before { content: "Date"; }
+	.masstable td:nth-of-type(7):before { content: "Summary"; }
+	.masstable td:nth-of-type(8):before { content: "Fatalities"; }
+	.masstable td:nth-of-type(9):before { content: "Injured"; }
+	.masstable td:nth-of-type(10):before { content: "Total Victims"; }
+    .masstable td:nth-of-type(11):before { content: "Location"; }
+	.masstable td:nth-of-type(12):before { content: "Shooter Age"; }
+	.masstable td:nth-of-type(13):before { content: "Mental Health Issues"; }
+	.masstable td:nth-of-type(14):before { content: "Mental Health Details"; }
+	.masstable td:nth-of-type(15):before { content: "Weapons Obtained Legally"; }
+	.masstable td:nth-of-type(16):before { content: "Race"; }
+	.masstable td:nth-of-type(17):before { content: "Gender"; }
+	.masstable td:nth-of-type(18):before { content: "Latitude"; }
+	.masstable td:nth-of-type(19):before { content: "Longitude"; }
+	.masstable td:nth-of-type(20):before { content: "Type"; }
+    .masstable td:nth-of-type(21):before { content: "Month"; }
+	.masstable td:nth-of-type(22):before { content: "Year"; }
 }
