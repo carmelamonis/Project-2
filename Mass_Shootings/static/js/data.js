@@ -18,7 +18,7 @@ function init() {
             var row = tbody.append("tr");
             Object.entries(shooting).forEach(([key, value]) => row.append("td").text(value));
         });
-        
+    
     });
 }   
 //-----------------------------------------------------------------//
