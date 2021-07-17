@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
   integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
   crossorigin=""/>
+<!-- tab map -->
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mate SC">
@@ -34,21 +36,34 @@
 <body>
   <h1>Mass Shootings Visualizations</h1>
   <!--Navigation Bar-->
-    <ul class="nav justify-content-center">
-      <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="/map">Map</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="/axes">Axes</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="/data">Data</a>
-      </li>
+  <ul class="nav justify-content-center">
+    <li class="nav-item">
+      <a class="nav-link" href="/">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/map">Map</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/axes">Axes</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/data">Data</a>
+    </li>
+  </ul>
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+      <li class="active"><a class="atab" href="#a_tab" data-toggle="tab">Tab A</a></li>
+      <li><a class="btab" href="#b_tab" data-toggle="tab">Tab B</a></li>
     </ul>
-
+    <div class="tab-content">
+      <div class="tab-pane active" id="a_tab">
+        <acontent></acontent>
+      </div>
+      <div class="tab-pane" id="b_tab">
+        <bcontent></bcontent>
+      </div>
+    </div>
+  </div>
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="http://d3js.org/d3.v3.js"></script>
@@ -74,6 +89,17 @@
   
   <!-- JS Map File -->
   <script type="text/javascript" src="static/js/map.js"></script>
+  <script>
+    // Disable caching of AJAX responses -Used when debugging
+    $.ajaxSetup ({ cache: false });
+
+    $.getScript("./../static/js/map.js");
+    $(".atab").click(function(){ a(); })
+  </script>
+  <script>
+    $(".btab").click(function(){ b(); })
+  </script>
+
 </body>
 
 </html>
