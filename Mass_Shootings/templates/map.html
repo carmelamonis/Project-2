@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
   integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
   crossorigin=""/>
+
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mate SC">
   <!-- Bootstrap -->
@@ -19,10 +20,20 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='./css/style.css') }}" />
+
+   <!-- Marker Cluster CSS -->
+   <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
+   <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
+
+   <!-- Icons -->
+  <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="static/css/leaflet.extra-markers.min.css">
+
 </head>
+
 <body>
   <h1>Mass Shootings Visualizations</h1>
-  <!-- Navigation -->
+  <!--Navigation Bar-->
     <ul class="nav justify-content-center">
       <li class="nav-item">
           <a class="nav-link" href="/">Home</a>
@@ -38,9 +49,15 @@
       </li>
     </ul>
 
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://d3js.org/d3.v3.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+
+    <script></script>
   <!-- Div that holds map -->
   <div id="map-id"></div>
-
+  
   <!-- D3 -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
 
@@ -48,6 +65,9 @@
   <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
   integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
   crossorigin=""></script>
+
+  <!--Marker Cluster JS-->
+  <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
 
   <!-- API Key -->
   <script type="text/javascript" src="static/js/config.js"></script>

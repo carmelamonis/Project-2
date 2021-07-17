@@ -137,3 +137,18 @@ only screen and (max-width: 760px),
     .masstable td:nth-of-type(21):before { content: "Month"; }
 	.masstable td:nth-of-type(22):before { content: "Year"; }
 }
+
+body {
+	padding: 0;
+	margin: 0;
+  }
+  
+  #map-id,
+  body,
+  html {
+	height: 100%;
+  }
+  
+  .leaflet-popup-content {
+	text-align: center;
+  }
