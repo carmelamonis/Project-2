@@ -8,8 +8,8 @@
 
   <title>Us Mass Shootings Axes</title>
 
-  <!-- For tabbed -->
-  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  <!-- jQuery -->
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mate SC">
   <!-- Bootstrap -->
@@ -35,34 +35,9 @@
       <a class="nav-link" href="/data">Data</a>
     </li>
   </ul>
-  <div class="tabbable">
-    <ul class="nav nav-tabs">
-      <li class="active"><a class="atab" href="#a_tab" data-toggle="tab">Tab A</a></li>
-      <li><a class="btab" href="#b_tab" data-toggle="tab">Tab B</a></li>
-    </ul>
-    <div class="tab-content">
-      <div class="tab-pane active" id="a_tab">
-        <acontent></acontent>
-      </div>
-      <div class="tab-pane" id="b_tab">
-        <bcontent></bcontent>
-      </div>
-    </div>
-  </div>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-  <script src="http://d3js.org/d3.v3.js"></script>
-  <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+  
+  <div id="bar"></div>
 
-  <script>
-    // Disable caching of AJAX responses -Used when debugging
-    $.ajaxSetup ({ cache: false });
-
-    $.getScript("./../static/js/axes.js");
-    $(".atab").click(function(){ a(); })
-  </script>
-  <script>
-    $(".btab").click(function(){ b(); })
-  </script>
 </body>
 
 <script src="https://d3js.org/d3.v5.min.js"></script>
