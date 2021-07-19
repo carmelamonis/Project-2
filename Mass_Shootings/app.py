@@ -39,7 +39,7 @@ def map():
 # Route that will trigger the axes chart
 @app.route("/axes")
 def axes():
-    # Direct to bubble.html
+    # Direct to axes.html
     return render_template("axes.html")
 
 # Route that will trigger the data table
