@@ -23,7 +23,7 @@ var svg = d3.select("#bar")
 var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);  
 
-var chosenXAxis = "agebin";
+var chosenXAxis = "race";
 var chosenYAxis = "count";
 
   //--- X SCALE function - updates xScale upon axis change ---//
@@ -59,12 +59,13 @@ function renderYaxis(newYScale, yAxis) {
   return yAxis;
 }
 //--- RECTANGLE RENDER function - updates rectangle group upon axis change ---//
-function renderRect(rectangleGroup, newXScale, chosenXAxis, newYScale, chosenYAxis) {
-  console.log(rectangleGroup);
-  console.log(newXScale);
-  console.log(newYScale);
-  rectangleGroup.transition()
-    .duration(1000)
+function renderRect(newData, newXScale, chosenXAxis, newYScale, chosenYAxis) {
+  chartGroup.selectAll("rect").remove()
+  var rectangleGroup = chartGroup.selectAll("rect")
+    .data(newData)
+    .enter()
+    .append("rect")
+    .attr("class", "bar")
     .attr("x", d => newXScale(d[chosenXAxis]))
     .attr("y", d => newYScale(d[chosenYAxis]))
     .attr("width", newXScale.bandwidth())
@@ -78,9 +79,11 @@ d3.json("/api/mass_shootings").then((massData, err) => {
   // Get race incidences count
   var allRaces = [];
   var races = massData.map(d => d.race);
+  var victims = massData.map(d => d.total_victims);
 
   var cnt = races.filter(v => (v === "White")).length;
-  allRaces.push({race:"White", count: cnt});
+  var vic_cnt = victims.filter(v => v.total_victims).length;
+  allRaces.push({race:"White", count: cnt, victims: vic_cnt});
   cnt = races.filter(v => (v === "Black")).length;
   allRaces.push({race:"Black", count: cnt});
   cnt = races.filter(v => (v === "Latino")).length;
@@ -122,9 +125,9 @@ d3.json("/api/mass_shootings").then((massData, err) => {
   console.log(allAges);
     
   // Create x axis scale with padding
-  var xBandScale = xScale(allAges, chosenXAxis);
+  var xBandScale = xScale(allRaces, chosenXAxis);
   // Create a linear scale for the vertical axis
-  var yLinearScale = yScale(allAges, chosenYAxis);
+  var yLinearScale = yScale(allRaces, chosenYAxis);
     
   // Create two new functions passing our scales in as arguments
   // These will be used to create the chart's axes
@@ -172,19 +175,26 @@ d3.json("/api/mass_shootings").then((massData, err) => {
   var yLabelGroup = chartGroup.append("g")
   var countLabel = yLabelGroup.append("text")
     .attr("transform", "rotate(-90)")
-    .attr("y", 0 - margin.left + 40)
     .attr("x", 0 - (height / 2))
-    //.attr("dy", "1em")
+    .attr("y", 0 - margin.right)
     .attr("value", "count")
     .classed("active", true)
     .text("Number of Incidences");
+  var victimLabel = yLabelGroup.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("x", 0 - (height / 2))
+    .attr("y", 0 - margin.right - 20)
+    .attr("value", "victim")
+    .classed("inactive", true)
+    .text("Number of Victims");
   
   // x axis event listener
   xLabelGroup.selectAll("text").on("click", function() {
     // get value of selection
     var value = d3.select(this).attr("value");
-    console.log(value);
-    console.log(`Current y: ${chosenYAxis}`);
+    console.log(`Current x: ${chosenXAxis}`);
+    console.log(`New x: ${value}`);
+    
     if (value !== chosenXAxis) {
       chosenXAxis = value;
       if (chosenXAxis == "race") {
@@ -194,7 +204,7 @@ d3.json("/api/mass_shootings").then((massData, err) => {
         yLinearScale = yScale(allRaces, chosenYAxis);
         yAxis = renderYaxis(yLinearScale, yAxis);
         // update rectangles with new x values
-        rectangleGroup = renderRect(rectangleGroup, xBandScale, chosenXAxis, yLinearScale, chosenYAxis);
+        rectangleGroup = renderRect(allRaces, xBandScale, chosenXAxis, yLinearScale, chosenYAxis);
         // updates tooltips with new info
          //rectangleGroup = updateToolTip(chosenXAxis, chosenYAxis, rectangleGroup);
       }
@@ -202,19 +212,24 @@ d3.json("/api/mass_shootings").then((massData, err) => {
         // update xScale and axis
         xBandScale = xScale(allAges, chosenXAxis);
         xAxis = renderXaxis(xBandScale, xAxis);
-        yLinearScale = yScale(allRaces, chosenYAxis);
+        yLinearScale = yScale(allAges, chosenYAxis);
         yAxis = renderYaxis(yLinearScale, yAxis);
         // update rectangles with new x values
-        rectangleGroup = renderRect(rectangleGroup, xBandScale, chosenXAxis, yLinearScale, chosenYAxis);
+        rectangleGroup = renderRect(allAges, xBandScale, chosenXAxis, yLinearScale, chosenYAxis);
         // updates tooltips with new info
          //rectangleGroup = updateToolTip(chosenXAxis, chosenYAxis, rectangleGroup);
       }
     }
   }) // End xLabelGroup
+  // y axis event listener
   yLabelGroup.selectAll("text").on("click", function() {
+    // get value of selection
     var value = d3.select(this).attr("value");
-    console.log(value);
-    console.log(chosenXAxis);
+    console.log(`Current y: ${chosenYAxis}`);
+    console.log(`New y: ${value}`);
+    if (value !== chosenYAxis) {
+      chosenYAxis = value;
+    }   
   }) // End yLabelGroup
 
 }); // End d3.json
