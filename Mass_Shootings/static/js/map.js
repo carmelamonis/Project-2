@@ -37,11 +37,35 @@ var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{
     myMap.addLayer(markers);
     });
 }
+
 a()
+
 function b(){
   myMap.eachLayer(function (layer) {
     myMap.removeLayer(layer);
 });
+d3.json('/api/mass_shootings').then(function(data) {
+// console.log(data)
+var circles = L.layerGroup()
+for(i=0;i<data.length;i++){
+  console.log(data[i])
+  var victims = data[i]["total_victims"]
+  var injuries = data[i]["injured"]
+  var fatalities = data[i]["fatalities"]
+  // console.log(data[i])
+  var location = data[i]["location"]
+  var latitude = data[i]["latitude"]
+  var longitude = data[i]["longitude"]
+  console.log(victims,injuries,fatalities,location,latitude,longitude)
+  L.circleMarker([latitude,longitude],{radius:Math.sqrt(victims*10),opacity:0.5,color:"red"}).addTo(circles).bindPopup(
+    `<h3>Victims:${victims},Injuries${injuries}</h3>`
+  )
+  L.circleMarker([latitude,longitude],{radius:Math.sqrt(fatalities*10),opacity:0.25,color:"orange"}).addTo(circles).bindPopup(
+    `<h3>Victims:${victims},Injuries${injuries}</h3>`
+  )
+}
+  circles.addTo(myMap)
+})
 var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
   maxZoom: 18,
