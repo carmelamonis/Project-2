@@ -2,7 +2,7 @@ $("#bar").empty();
 
 // Define svg width and height
 var svgWidth = 1000;
-var svgHeight = 700;
+var svgHeight = 500;
 
 // Set margins for bar
 var margin = { top: 20, right: 40, bottom: 90, left: 100 };
@@ -15,13 +15,13 @@ var height = svgHeight - margin.top - margin.bottom;
 // https://medium.com/@louisemoxy/a-simple-way-to-make-d3-js-charts-svgs-responsive-7afb04bc2e4b
 var svg = d3.select("#bar")
   .append("svg")
-  //.attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
+  //.attr("viewBox", `0 0 ${svgWidth + 200} ${svgHeight}`)
   .attr("width", svgWidth)
   .attr("height", svgHeight);
 
 // Append the bar group and shift the group by left and top margins
 var chartGroup = svg.append("g")
-  .attr("transform", `translate(${margin.left}, ${margin.top})`);  
+  .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 var chosenXAxis = "race";
 var chosenYAxis = "count";
@@ -128,20 +128,19 @@ function renderRect(newData, newXScale, chosenXAxis, newYScale, chosenYAxis) {
   var mouseover = function(d) {
     Tooltip
       .style("opacity", 1) // makes tooltip show
-      .style("left", (d3.mouse(this)[0] + 100) + "px")
-      .style('top', (height + margin.top + 20) + 'px')
-      //.style("top", (d3.mouse(this)[1]) + "px")
+      .style("left", (parseInt(d3.select(this).attr("x")) + 105) + "px")
+      .style("top",  (parseInt(d3.select(this).attr("y")) + 230) + "px")
       .html(`${xlabel}${d[chosenXAxis]}<br>${ylabel}${d[chosenYAxis]}`)
     d3.select(this)
       .style("stroke", "black")
-      .style("fill", "green")  
+      .style("fill", "#FFDA87")  
   }
   var mouseleave = function(d) {
     Tooltip
       .style("opacity", 0)
     d3.select(this)
       .style("stroke", "none")
-      .style("fill", "#c3073F")  
+      .style("fill", "#C3073F")  
   }
   chartGroup.selectAll("rect").remove() 
   // Create one rectagle group - linear and band scales to position each rect in the chart
@@ -149,6 +148,8 @@ function renderRect(newData, newXScale, chosenXAxis, newYScale, chosenYAxis) {
     .data(newData)
     .enter()
     .append("rect")
+      // .transition()
+      // .duration(1000)
       .attr("class", "bar")
       .attr("x", d => newXScale(d[chosenXAxis]))
       .attr("y", d => newYScale(d[chosenYAxis]))
@@ -156,7 +157,10 @@ function renderRect(newData, newXScale, chosenXAxis, newYScale, chosenYAxis) {
       .attr("height", d => height - newYScale(d[chosenYAxis]))
       .attr("fill", "#c3073F")
     .on("mouseover", mouseover)
-    .on("mouseleave", mouseleave);
+    .on("mouseleave", mouseleave)
+    .on("click", function(d) {
+      console.log("clicked") 
+    });
   return rectangleGroup;
 }
 
@@ -235,7 +239,7 @@ d3.json("/api/mass_shootings").then((massData, err) => {
     
   allAges.sort(({agebin:a}, {agebin:b}) => b-a);
   console.log(allAges);
-    
+  
   // Create x axis scale with padding
   var xBandScale = xScale(allRaces, chosenXAxis);
   // Create a linear scale for the vertical axis
@@ -249,10 +253,12 @@ d3.json("/api/mass_shootings").then((massData, err) => {
   // Append two SVG group elements to the chartGroup area,
   // and create the bottom and left axes inside of them
   var xAxis = chartGroup.append("g")
+    .classed("axisText", true)
     .attr("transform", `translate(0, ${height})`)
     .call(bottomAxis);
   
   var yAxis = chartGroup.append("g")
+    .classed("axisText", true)
     .call(leftAxis);
 
   // create a tooltip
@@ -264,26 +270,27 @@ d3.json("/api/mass_shootings").then((massData, err) => {
     .style("border-width", "2px")
     .style("border-radius", "4px")
     .style("padding", "4px")
-    
-    
+
   // Two functions that change the tooltip when user hover / move / leave a cell
   var mouseover = function(d) {
     Tooltip
       .style("opacity", 1) // makes tooltip show
-      .style("left", (d3.mouse(this)[0] + 100) + "px")
-      .style('top', (height + margin.top + 20) + 'px')
-      //.style("top", (d3.mouse(this)[1]) + "px")
+      .style("left", (parseInt(d3.select(this).attr("x")) + 105) + "px")
+      .style("top",  (parseInt(d3.select(this).attr("y")) + 230) + "px")
       .html(`Race: ${d.race}<br>Incidents: ${d.count}`)
     d3.select(this)
       .style("stroke", "black")
-      .style("fill", "green")  
+      .style("fill", "#FFDA87")  
+    console.log((parseInt(d3.select(this).attr("x"))) + "px");
+    console.log((parseInt(d3.select(this).attr("y"))) + "px");
   }
+
   var mouseleave = function(d) {
     Tooltip
       .style("opacity", 0)
     d3.select(this)
       .style("stroke", "none")
-      .style("fill", "#c3073F")  
+      .style("fill", "#C3073F")  
   }
  // Create one rectagle group - linear and band scales to position each rect in the chart
   var rectangleGroup = chartGroup.selectAll("rect")
@@ -332,6 +339,60 @@ d3.json("/api/mass_shootings").then((massData, err) => {
     .classed("inactive", true)
     .text("Number of Victims");
   
+  $("#sortd").click(function(){
+    console.log("Descending");
+    console.log(chosenXAxis, chosenYAxis);
+    if (chosenXAxis == "race") {
+      allRaces.sort(({[chosenYAxis]:a}, {[chosenYAxis]:b}) => b-a);
+      console.log(allRaces);
+      // update xScale and axis
+      xBandScale = xScale(allRaces, chosenXAxis);
+      xAxis = renderXaxis(xBandScale, xAxis);
+      yLinearScale = yScale(allRaces, chosenYAxis);
+      yAxis = renderYaxis(yLinearScale, yAxis);
+      // update rectangles with new x values
+      rectangleGroup = renderRect(allRaces, xBandScale, chosenXAxis, yLinearScale, chosenYAxis);
+    }
+    if (chosenXAxis == "agebin") {
+      allAges.sort(({[chosenYAxis]:a}, {[chosenYAxis]:b}) => b-a);
+      console.log(allAges);
+      // update xScale and axis
+      xBandScale = xScale(allAges, chosenXAxis);
+      xAxis = renderXaxis(xBandScale, xAxis);
+      yLinearScale = yScale(allAges, chosenYAxis);
+      yAxis = renderYaxis(yLinearScale, yAxis);
+      // update rectangles with new x values
+      rectangleGroup = renderRect(allAges, xBandScale, chosenXAxis, yLinearScale, chosenYAxis);
+    }
+  });
+
+  $("#sorta").click(function(){
+    console.log("Ascending");
+    console.log(chosenXAxis, chosenYAxis);  
+    if (chosenXAxis == "race") {
+      allRaces.sort(({[chosenYAxis]:a}, {[chosenYAxis]:b}) => a-b);
+      console.log(allRaces);
+      // update xScale and axis
+      xBandScale = xScale(allRaces, chosenXAxis);
+      xAxis = renderXaxis(xBandScale, xAxis);
+      yLinearScale = yScale(allRaces, chosenYAxis);
+      yAxis = renderYaxis(yLinearScale, yAxis);
+      // update rectangles with new x values
+      rectangleGroup = renderRect(allRaces, xBandScale, chosenXAxis, yLinearScale, chosenYAxis);
+    }
+    if (chosenXAxis == "agebin") {
+      allAges.sort(({[chosenYAxis]:a}, {[chosenYAxis]:b}) => a-b);
+      console.log(allAges);
+      // update xScale and axis
+      xBandScale = xScale(allAges, chosenXAxis);
+      xAxis = renderXaxis(xBandScale, xAxis);
+      yLinearScale = yScale(allAges, chosenYAxis);
+      yAxis = renderYaxis(yLinearScale, yAxis);
+      // update rectangles with new x values
+      rectangleGroup = renderRect(allAges, xBandScale, chosenXAxis, yLinearScale, chosenYAxis);
+    }
+  });
+
   // x axis event listener
   xLabelGroup.selectAll("text").on("click", function() {
     // get value of selection
@@ -347,6 +408,12 @@ d3.json("/api/mass_shootings").then((massData, err) => {
         yAxis = renderYaxis(yLinearScale, yAxis);
         // update rectangles with new x values
         rectangleGroup = renderRect(allRaces, xBandScale, chosenXAxis, yLinearScale, chosenYAxis);
+        if (chosenYAxis == "count") {
+          $("#title").text("Number of Incidents by Shooter Race");
+        }
+        else {
+          $("#title").text("Total Victims by Shooter Race");
+        }
       }
       if (chosenXAxis == "agebin") {
         // update xScale and axis
@@ -356,6 +423,12 @@ d3.json("/api/mass_shootings").then((massData, err) => {
         yAxis = renderYaxis(yLinearScale, yAxis);
         // update rectangles with new x values
         rectangleGroup = renderRect(allAges, xBandScale, chosenXAxis, yLinearScale, chosenYAxis);
+        if (chosenYAxis == "count") {
+          $("#title").text("Number of Incidents by Shooter Age Group");
+        }
+        else {
+          $("#title").text("Total Victims by Shooter Age Group");
+        }
       }
     }
     // changes x-axis classes to bold text
@@ -391,6 +464,12 @@ d3.json("/api/mass_shootings").then((massData, err) => {
         yAxis = renderYaxis(yLinearScale, yAxis);
         // update rectangles with new x values
         rectangleGroup = renderRect(allRaces, xBandScale, chosenXAxis, yLinearScale, chosenYAxis);
+        if (chosenYAxis == "count") {
+          $("#title").text("Number of Incidents by Shooter Race");
+        }
+        else {
+          $("#title").text("Total Victims by Shooter Race");
+        }
       }
       if (chosenXAxis == "agebin") {
         // update xScale and axis
@@ -400,6 +479,12 @@ d3.json("/api/mass_shootings").then((massData, err) => {
         yAxis = renderYaxis(yLinearScale, yAxis);
         // update rectangles with new x values
         rectangleGroup = renderRect(allAges, xBandScale, chosenXAxis, yLinearScale, chosenYAxis);
+        if (chosenYAxis == "count") {
+          $("#title").text("Number of Incidents by Shooter Age Group");
+        }
+        else {
+          $("#title").text("Total Victims by Shooter Age Group");
+        }
       }
     }   
     // changes x-axis classes to bold text
