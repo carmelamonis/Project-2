@@ -78,5 +78,6 @@ var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{
   id: "dark-v10",
   accessToken: API_KEY
   }).addTo(myMap);
+console.log("test")
 })
 }
