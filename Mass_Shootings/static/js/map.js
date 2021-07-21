@@ -45,10 +45,14 @@ function b(){
     myMap.removeLayer(layer);
 });
 d3.json('/api/mass_shootings').then(function(data) {
-// console.log(data)
+  d3.json('/static/js/gz_2010_us_040_00_5m.json').then(function(region_data){
+  var region_features = region_data.features
+  // console.log(region_features[0]["geometry"])
+  // L.polygon(region_features[0]["geometry"]["coordinates"][0],{color:"blue"}).addTo(myMap)
+    // console.log(data)
 var circles = L.layerGroup()
 for(i=0;i<data.length;i++){
-  console.log(data[i])
+  // console.log(data[i])
   var victims = data[i]["total_victims"]
   var injuries = data[i]["injured"]
   var fatalities = data[i]["fatalities"]
@@ -56,13 +60,15 @@ for(i=0;i<data.length;i++){
   var location = data[i]["location"]
   var latitude = data[i]["latitude"]
   var longitude = data[i]["longitude"]
-  console.log(victims,injuries,fatalities,location,latitude,longitude)
+  // console.log(victims,injuries,fatalities,location,latitude,longitude)
   L.circleMarker([latitude,longitude],{radius:Math.sqrt(victims*10),opacity:0.5,color:"red"}).addTo(circles).bindPopup(
     `<h3>Victims:${victims},Injuries${injuries}</h3>`
   )
   L.circleMarker([latitude,longitude],{radius:Math.sqrt(fatalities*10),opacity:0.25,color:"orange"}).addTo(circles).bindPopup(
     `<h3>Victims:${victims},Injuries${injuries}</h3>`
   )
+  L.polygon(region_features[0]["geometry"]["coordinates"][0],{color:"blue"}).addTo(myMap)
+
 }
   circles.addTo(myMap)
 })
@@ -72,4 +78,5 @@ var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{
   id: "dark-v10",
   accessToken: API_KEY
   }).addTo(myMap);
+})
 }
