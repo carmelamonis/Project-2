@@ -8,11 +8,11 @@ The visualizations generated use data from a Mother Jones' Investigation and can
 Visualizations include:
 * Leaflet map:
     * tile layers
-    * circle markers - location and victim count
+    * circle markers (location and victim count)
     * regional boundries
 * Leaflet map:
     * cluster markers
-    * location of attack markers
+    * location of attack (i.e. workplace, school, etc...)
 * D3 Multi axes bar chart
     * x: Race and Age Group
     * y: Number of Incidents and Total Victims
