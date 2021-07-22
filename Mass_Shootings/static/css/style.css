@@ -1,154 +1,225 @@
-/* Main heading */
+/* All html - Main heading */
 h1 {
-    font-family: Mate SC;
-    font-size: 50px;
-    color: #6F2232;
-    text-align: center;
-    font-weight: bold;
-    padding-top: 20px;
+  font-family: Mate SC;
+  font-size: 50px;
+  color: #6F2232;
+  text-align: center;
+  font-weight: bold;
+  padding-top: 20px;
 }
-/* Navigation links */
+/* All html - Navigation links */
 .nav-link {
-    font-family: Helvetica, sans-serif;
-    color: #1A1A1D;
-    font-weight: bolder;
+  font-family: Helvetica, sans-serif;
+  color: black;
+  font-weight: bolder;
 }
-/* Font color change when hovered */
+/* All html - Font color change when hovered */
 .nav-item a:hover {
-    color: #C3073F;
+  color: #C3073F;
 }
-/* Index: Caption link font */
-.carousel-caption a {
-    color: #FFFFFF;
-    font-weight: bolder;
-    text-shadow: 2px 2px #6F2232;
-    
+/* index.html - Info paragraph */
+.theme {
+  font-family: Helvetica, sans-serif;
+  font-size: 16; 
+  padding-top: 25px;
+  padding-left: 200px;
+  padding-right: 200px;
 }
-/* Data: Button */
+/* index.html - Map and bar icons */
+img.card-img-top {
+  width: 40%;
+  height: auto;
+  padding-top: 10px;
+}
+/* index.html - Text in card */
+.card-body {
+  text-align: center;
+}
+/* index.html - Resouces cited */
+footer {
+  font-family: Helvetica, sans-serif;
+  font-size: 10px; 
+  font-style: italic;
+}
+/* data.html - Button */
 button.btn.btn-default {
-	background-color: #6F2232;
-	border: none;
-	color: white;
-	padding: 10px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 15px;
-	margin-bottom: 5px;
+  background-color: #6F2232;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;	
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin-bottom: 5px;
 }
-/* Data: Main table */
+/* data.html - Main table */
 .masstable {
-    font-family: Garamond, serif;
-    font-weight: bolder;
-    border-collapse: collapse;
-    width: 100%;
+  font-family: Garamond, serif;
+  font-weight: bolder;
+  border-collapse: collapse;
+  width: 100%;
 }
-/* Data: Adds border and padding to all cells */
+/* data.html - Adds border and padding to all cells */
 .masstable td, .masstable th {
-    border: 1px solid 	lightgray;
-    padding: 5px;
+  border: 1px solid 	lightgray;
+  text-align: center;
+  padding: 5px;
 }
-/* Data: Keeps header row at top when scrolling */
+/* data.html - Keeps header row at top when scrolling */
 table thead {
-    position: sticky;
-    inset-block-start: 0;
+  position: sticky;
+  inset-block-start: 0;
 }
-/* Data: Every other row light gray */
+/* data.html - Every other row light gray */
 .masstable tr:nth-child(even) {
-    background-color: 	#F0F0F0;
+  background-color: 	#F0F0F0;
 }
-/* Data: Table header row */
+/* data.html - Table header row */
 .masstable th {
-    text-align: center;
-    background-color: #4E4E50;
-    color: 	#FFFFFF;
+  text-align: center;
+  background-color: #4E4E50;
+  color: 	#FFFFFF;
 }
-/* Data: Changes when hovered */
+/* data.html - Changes when hovered */
 .masstable tr:hover {
-    background-color: #6F2232;
-    color: 	lightgray;
+  background-color: #6F2232;
+  color: 	lightgray;
 }
 
-/* 
-Data: Max width before this PARTICULAR table gets nasty
+/* data.html - Data: Max width before this PARTICULAR table gets nasty
 This query will take effect for any screen smaller than 760px
 and also iPads specifically.
 */
 @media 
-only screen and (max-width: 760px),
+only screen and (max-width: 768px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
 
-	/* Force table to not be like tables anymore */
-	.masstble table, thead, tbody, th, td, tr { 
-		display: block; 
-	}
-	
-	/* Hide table headers (but not display: none;, for accessibility) */
-	.masstablevthead tr { 
-		position: absolute;
-		top: -9999px;
-		left: -9999px;
-	}
-	
-	.masstable tr { border: 1px solid #ccc; }
-	
-	.masstable td { 
-		/* Behave  like a "row" */
-		border: none;
-		border-bottom: 1px solid #eee; 
-		position: relative;
-		padding-left: 50%; 
-	}
-	
-	.masstable td:before { 
-		/* Now like a table header */
-		position: absolute;
-		/* Top/left values mimic padding */
-		top: 6px;
-		left: 6px;
-		width: 45%; 
-		padding-right: 10px; 
-		white-space: nowrap;
-	}
-	
-	/*
-	Label the data
-	*/
-	.masstable td:nth-of-type(1):before { content: "Id"; }
-	.masstable td:nth-of-type(2):before { content: "Case"; }
-	.masstable td:nth-of-type(3):before { content: "City"; }
-	.masstable td:nth-of-type(4):before { content: "State"; }
-	.masstable td:nth-of-type(5):before { content: "Region"; }
-	.masstable td:nth-of-type(6):before { content: "Date"; }
-	.masstable td:nth-of-type(7):before { content: "Summary"; }
-	.masstable td:nth-of-type(8):before { content: "Fatalities"; }
-	.masstable td:nth-of-type(9):before { content: "Injured"; }
-	.masstable td:nth-of-type(10):before { content: "Total Victims"; }
-    .masstable td:nth-of-type(11):before { content: "Location"; }
-	.masstable td:nth-of-type(12):before { content: "Shooter Age"; }
-	.masstable td:nth-of-type(13):before { content: "Mental Health Issues"; }
-	.masstable td:nth-of-type(14):before { content: "Mental Health Details"; }
-	.masstable td:nth-of-type(15):before { content: "Weapons Obtained Legally"; }
-	.masstable td:nth-of-type(16):before { content: "Race"; }
-	.masstable td:nth-of-type(17):before { content: "Gender"; }
-	.masstable td:nth-of-type(18):before { content: "Latitude"; }
-	.masstable td:nth-of-type(19):before { content: "Longitude"; }
-	.masstable td:nth-of-type(20):before { content: "Type"; }
-    .masstable td:nth-of-type(21):before { content: "Month"; }
-	.masstable td:nth-of-type(22):before { content: "Year"; }
-}
-
+  /* Force table to not be like tables anymore */
+  .masstble table, thead, tbody, th, td, tr { 
+    display: block; 
+  }
+  /* Hide table headers (but not display: none;, for accessibility) */
+  .masstablevthead tr { 
+    position: absolute;
+	top: -9999px;
+	left: -9999px;
+  }
+  .masstable tr { border: 1px solid #ccc; }
+  .masstable td { 
+    /* Behave  like a "row" */
+	border: none;
+	border-bottom: 1px solid #eee; 
+	position: relative;
+	padding-left: 50%; 
+  }
+  .masstable td:before { 
+    /* Now like a table header */
+	position: absolute;
+	/* Top/left values mimic padding */
+	top: 6px;
+	left: 6px;
+	width: 45%; 
+	padding-right: 10px; 
+	white-space: nowrap;
+  }
+  /* Label the data */
+  .masstable td:nth-of-type(1):before { content: "Id"; }
+  .masstable td:nth-of-type(2):before { content: "Case"; }
+  .masstable td:nth-of-type(3):before { content: "City"; }
+  .masstable td:nth-of-type(4):before { content: "State"; }
+  .masstable td:nth-of-type(5):before { content: "Region"; }
+  .masstable td:nth-of-type(6):before { content: "Date"; }
+  .masstable td:nth-of-type(7):before { content: "Summary"; }
+  .masstable td:nth-of-type(8):before { content: "Fatalities"; }
+  .masstable td:nth-of-type(9):before { content: "Injured"; }
+  .masstable td:nth-of-type(10):before { content: "Total Victims"; }
+  .masstable td:nth-of-type(11):before { content: "Location"; }
+  .masstable td:nth-of-type(12):before { content: "Shooter Age"; }
+  .masstable td:nth-of-type(13):before { content: "Mental Health Issues"; }
+  .masstable td:nth-of-type(14):before { content: "Mental Health Details"; }
+  .masstable td:nth-of-type(15):before { content: "Weapons Obtained Legally"; }
+  .masstable td:nth-of-type(16):before { content: "Race"; }
+  .masstable td:nth-of-type(17):before { content: "Gender"; }
+  .masstable td:nth-of-type(18):before { content: "Latitude"; }
+  .masstable td:nth-of-type(19):before { content: "Longitude"; }
+  .masstable td:nth-of-type(20):before { content: "Type"; }
+  .masstable td:nth-of-type(21):before { content: "Month"; }
+  .masstable td:nth-of-type(22):before { content: "Year"; }
+  }
+/* map.html - so maps will show */
 body {
-	padding: 0;
-	margin: 0;
-  }
-  
-  #map-id,
-  body,
-  html {
-	height: 100%;
-  }
-  
-  .leaflet-popup-content {
-	text-align: center;
-  }
+  padding: 0;
+  margin: 0;
+}
+#map-id,
+body,
+html {
+  height: 100%;
+}
+.leaflet-popup-content {
+  text-align: center;
+}
+/* axes.js - Chart Title */
+#title {
+  font-family: Mate SC;
+  font-size: 25px;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+.axisText {
+  font-family: Mate SC;
+  font-size: 13px;
+  color: black;
+}
+/* axes.js - Selected X and Y Labels group */
+.active {
+  font-family: Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  fill: black;
+  transition: fill 0.3s ease-out;
+  text-anchor: middle;
+}
+/* axes.js - X and Y Labels group */
+.inactive {
+  font-family: Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: lighter;
+  fill: #c9c9c9;
+  transition: fill 0.3s ease-out;
+  text-anchor: middle;
+}
+/* axes.js - X and Y Labels group */
+  .inactive:hover {
+  fill: #000;
+  cursor: pointer;
+}
+.tooltip {
+  color: #000000;
+  font-size: 12px;
+  text-align: center;
+}
+.nowrap {
+  text-align: center;
+  white-space: nowrap;
+}
+#sortd {
+  font-family: Helvetica, sans-serif;
+  background-color: #C9C9C9;
+  border: 2px solid #C9C9C9;
+  padding: 5px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+#sorta {
+  font-family: Helvetica, sans-serif;
+  background-color: #C9C9C9;
+  border: 2px solid #C9C9C9;
+  padding: 5px;
+  border-radius: 3px;
+  cursor: pointer;
+}
