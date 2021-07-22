@@ -47,6 +47,11 @@ function b(){
 d3.json('/api/mass_shootings').then(function(data) {
   d3.json('/static/js/gz_2010_us_040_00_5m.json').then(function(region_data){
   var region_features = region_data.features
+  // console.log(region_data)
+  // L.geoJSON(region_data).addTo(myMap)
+  // console.log(region_data)
+  var state_name = region_features[0]["properties"]["NAME"]
+  L.geoJSON(region_features[0]).addTo(myMap).bindPopup(state_name)
   // console.log(region_features[0]["geometry"])
   // L.polygon(region_features[0]["geometry"]["coordinates"][0],{color:"blue"}).addTo(myMap)
     // console.log(data)
@@ -70,7 +75,7 @@ for(i=0;i<data.length;i++){
 
 }
 // L.polygon(region_features[0]["geometry"]["coordinates"][0],{color:"blue"}).addTo(myMap)
-console.log(region_features)
+// console.log(region_features)
 
 circles.addTo(myMap)
 })
