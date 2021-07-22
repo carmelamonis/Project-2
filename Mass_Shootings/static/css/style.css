@@ -17,11 +17,29 @@ h1 {
 .nav-item a:hover {
   color: #C3073F;
 }
-/* index.html - Caption link font */
-.carousel-caption a {
-  color: white;
-  font-weight: bolder;
-  text-shadow: 2px 2px #6F2232;   
+/* index.html - Info paragraph */
+.theme {
+  font-family: Helvetica, sans-serif;
+  font-size: 16; 
+  padding-top: 25px;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+/* index.html - Map and bar icons */
+img.card-img-top {
+  width: 40%;
+  height: auto;
+  padding-top: 10px;
+}
+/* index.html - Text in card */
+.card-body {
+  text-align: center;
+}
+/* index.html - Resouces cited */
+footer {
+  font-family: Helvetica, sans-serif;
+  font-size: 10px; 
+  font-style: italic;
 }
 /* data.html - Button */
 button.btn.btn-default {
@@ -45,6 +63,7 @@ button.btn.btn-default {
 /* data.html - Adds border and padding to all cells */
 .masstable td, .masstable th {
   border: 1px solid 	lightgray;
+  text-align: center;
   padding: 5px;
 }
 /* data.html - Keeps header row at top when scrolling */
@@ -73,7 +92,7 @@ This query will take effect for any screen smaller than 760px
 and also iPads specifically.
 */
 @media 
-only screen and (max-width: 760px),
+only screen and (max-width: 768px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
 
   /* Force table to not be like tables anymore */
