@@ -67,10 +67,12 @@ for(i=0;i<data.length;i++){
   L.circleMarker([latitude,longitude],{radius:Math.sqrt(fatalities*10),opacity:0.25,color:"orange"}).addTo(circles).bindPopup(
     `<h3>Victims:${victims},Injuries${injuries}</h3>`
   )
-  L.polygon(region_features[0]["geometry"]["coordinates"][0],{color:"blue"}).addTo(myMap)
 
 }
-  circles.addTo(myMap)
+// L.polygon(region_features[0]["geometry"]["coordinates"][0],{color:"blue"}).addTo(myMap)
+console.log(region_features)
+
+circles.addTo(myMap)
 })
 var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
@@ -78,6 +80,5 @@ var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{
   id: "dark-v10",
   accessToken: API_KEY
   }).addTo(myMap);
-console.log("test")
 })
 }
