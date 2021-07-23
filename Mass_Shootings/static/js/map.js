@@ -164,19 +164,13 @@ d3.json('/api/mass_shootings').then(function(data) {
     L.geoJSON(region_features[i],{color:"blue"}).addTo(northeast_layer)
 
   }}
-  west_layer.addTo(myMap)
-  northeast_layer.addTo(myMap)
-  southeast_layer.addTo(myMap)
-  midwest_layer.addTo(myMap)
-  southwest_layer.addTo(myMap)
-  
-
   // L.geoJSON(region_features[0]).addTo(myMap).bindPopup(state_name)
 
   // console.log(region_features[0]["geometry"])
   // L.polygon(region_features[0]["geometry"]["coordinates"][0],{color:"blue"}).addTo(myMap)
   // console.log(data)
 var circles = L.layerGroup()
+var circles_2 = L.layerGroup()
 for(i=0;i<data.length;i++){
   // console.log(data[i])
   var victims = data[i]["total_victims"]
@@ -187,11 +181,11 @@ for(i=0;i<data.length;i++){
   var latitude = data[i]["latitude"]
   var longitude = data[i]["longitude"]
   // console.log(victims,injuries,fatalities,location,latitude,longitude)
-  L.circleMarker([latitude,longitude],{radius:Math.sqrt(victims*10),opacity:0.5,color:"red"}).addTo(circles).bindPopup(
-    `<h3>Victims:${victims},Injuries${injuries}</h3>`
+  L.circleMarker([latitude,longitude],{radius:Math.sqrt(victims*10),opacity:0.5,color:"red",popupAnchor: [0, -50]}).addTo(circles).bindPopup(
+    `<h3>Total Victims:${victims}</h3>`
   )
-  L.circleMarker([latitude,longitude],{radius:Math.sqrt(fatalities*10),opacity:0.25,color:"orange"}).addTo(circles).bindPopup(
-    `<h3>Victims:${victims},Injuries${injuries}</h3>`
+  L.circleMarker([latitude,longitude],{radius:Math.sqrt(fatalities*10),opacity:0.25,color:"orange",popupAnchor: [0, -30]}).addTo(circles_2).bindPopup(
+    `<h3>Injuries${fatalities}</h3>`
   )
 
 }
@@ -199,6 +193,18 @@ for(i=0;i<data.length;i++){
 // console.log(region_features)
 
 circles.addTo(myMap)
+final_b_layers = {"US West":west_layer,
+"US NorthEast":northeast_layer,
+"US SouthEast":southeast_layer,
+"US MidWest": midwest_layer,
+"US SouthWest": southwest_layer,
+"Fatalities":circles_2,
+"Injuries":circles}
+
+circles_test = {"Fatalities":circles_2,
+                "Injuries":circles}
+L.control.layers(null,final_b_layers).addTo(myMap)
+
 })
 var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
