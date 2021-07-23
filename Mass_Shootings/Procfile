@@ -1,0 +1,1 @@
+web: gunicorn Mass_Shootings.app:app
