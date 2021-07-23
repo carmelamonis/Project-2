@@ -46,15 +46,59 @@ function b(){
 });
 d3.json('/api/mass_shootings').then(function(data) {
   d3.json('/static/js/gz_2010_us_040_00_5m.json').then(function(region_data){
+  var west = ["Colorado", "Wyoming", "Montana", "Idaho", "Washington", "Oregon","Utah", "Nevada", "California", "Alaska", "Hawaii"]
+  var southwest = ["Texas", "Oklahoma", "New Mexico", "Arizona"]
+  var midwest = ["Ohio", "Indiana", "Michigan", "Illinois", "Missouri", "Wisconsin", "Minnesota","Iowa", "Kansas", "Nebraska", "South Dakota", "North Dakota"]
+  var southeast = ["West Virginia", "Virginia", "Kentucky", "Tennessee", "North Carolina","South Carolina", "Georgia", "Alabama", "Mississippi", "Arkansas","Louisiana", "Florida"] 
+  var northeast = ["Maine", "Massachusetts", "Rhode Island", "Connecticut", "New Hampshire", "Maryland","Vermont", "New York", "Pennsylvania", "New Jersey", "Delaware", "D.C."]
+  
   var region_features = region_data.features
+
+  var west_layer = L.layerGroup()
+  var southwest_layer = L.layerGroup()
+  var midwest_layer = L.layerGroup()
+  var southeast_layer = L.layerGroup()
+  var northeast_layer = L.layerGroup()
   // console.log(region_data)
   // L.geoJSON(region_data).addTo(myMap)
   // console.log(region_data)
-  var state_name = region_features[0]["properties"]["NAME"]
-  L.geoJSON(region_features[0]).addTo(myMap).bindPopup(state_name)
+
+  for(i=0;i<region_features.length;i++){
+  var state_name = region_features[i]["properties"]["NAME"]
+
+  if(west.includes(state_name) === true){
+    console.log("we")
+    L.geoJSON(region_features[i],{color:"purple"}).addTo(west_layer)
+  }
+  else if(southwest.includes(state_name) === true){
+    console.log("sw")
+    L.geoJSON(region_features[i],{color:"yellow"}).addTo(southwest_layer)
+  }
+  else if(midwest.includes(state_name) === true){
+    console.log("mw")
+    L.geoJSON(region_features[i],{color:"pink"}).addTo(midwest_layer)
+  }
+  else if(southeast.includes(state_name) === true){
+    console.log("se")
+    L.geoJSON(region_features[i],{color:"white"}).addTo(southeast_layer)
+  }
+  else if(northeast.includes(state_name) === true) {
+    console.log("ne")
+    L.geoJSON(region_features[i],{color:"blue"}).addTo(northeast_layer)
+
+  }}
+  west_layer.addTo(myMap)
+  northeast_layer.addTo(myMap)
+  southeast_layer.addTo(myMap)
+  midwest_layer.addTo(myMap)
+  southwest_layer.addTo(myMap)
+  
+
+  // L.geoJSON(region_features[0]).addTo(myMap).bindPopup(state_name)
+
   // console.log(region_features[0]["geometry"])
   // L.polygon(region_features[0]["geometry"]["coordinates"][0],{color:"blue"}).addTo(myMap)
-    // console.log(data)
+  // console.log(data)
 var circles = L.layerGroup()
 for(i=0;i<data.length;i++){
   // console.log(data[i])
