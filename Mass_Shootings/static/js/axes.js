@@ -12,7 +12,6 @@ var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
 
 // Create an SVG wrapper, append SVG that holds the chart
-// https://medium.com/@louisemoxy/a-simple-way-to-make-d3-js-charts-svgs-responsive-7afb04bc2e4b
 var svg = d3.select("#bar")
   .append("svg")
   //.attr("viewBox", `0 0 ${svgWidth + 200} ${svgHeight}`)
@@ -124,7 +123,7 @@ function renderRect(newData, newXScale, chosenXAxis, newYScale, chosenYAxis) {
     .style("border-radius", "4px")
     .style("padding", "4px")
     
-  // Two functions that change the tooltip when user hover / move / leave a cell
+  // Two functions that change the tooltip when user hover / leave a cell
   var mouseover = function(d) {
     Tooltip
       .style("opacity", 1) // makes tooltip show
@@ -200,7 +199,7 @@ d3.json("/api/mass_shootings").then((massData, err) => {
   allRaces.sort(({count:a}, {count:b}) => b-a);
   console.log(allRaces);
 
-  // Get age incidences count
+  // Get age incidences count and victims
   var allAges = [];
   var ages = massData.map(d => d.age_of_shooter);
 
@@ -245,8 +244,7 @@ d3.json("/api/mass_shootings").then((massData, err) => {
   // Create a linear scale for the vertical axis
   var yLinearScale = yScale(allRaces, chosenYAxis);
     
-  // Create two new functions passing our scales in as arguments
-  // These will be used to create the chart's axes
+  // Create chart's axes
   var bottomAxis = d3.axisBottom(xBandScale);
   var leftAxis = d3.axisLeft(yLinearScale).ticks(10);
 
@@ -271,7 +269,7 @@ d3.json("/api/mass_shootings").then((massData, err) => {
     .style("border-radius", "4px")
     .style("padding", "4px")
 
-  // Two functions that change the tooltip when user hover / move / leave a cell
+  // Two functions that change the tooltip when user hover / leave a cell
   var mouseover = function(d) {
     Tooltip
       .style("opacity", 1) // makes tooltip show
@@ -292,7 +290,7 @@ d3.json("/api/mass_shootings").then((massData, err) => {
       .style("stroke", "none")
       .style("fill", "#C3073F")  
   }
- // Create one rectagle group - linear and band scales to position each rect in the chart
+ // Create one rectangle group - linear and band scales to position each rect in the chart
   var rectangleGroup = chartGroup.selectAll("rect")
     .data(allRaces)
     .enter()
