@@ -7,6 +7,10 @@ function a(){
   myMap.eachLayer(function (layer) {
     myMap.removeLayer(layer);
   });
+
+  //Remove control before running the rest of function to avoid duplicates
+  $(".leaflet-control-layers.leaflet-control").remove();
+
   
   //Load tile layer/base map
   var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -109,10 +113,14 @@ function a(){
 
 a()
 
+
 function b(){
   myMap.eachLayer(function (layer) {
     myMap.removeLayer(layer);
 });
+
+$(".leaflet-control-layers.leaflet-control").remove();
+
 d3.json('/api/mass_shootings').then(function(data) {
 // console.log(data)
 var circles = L.layerGroup()
