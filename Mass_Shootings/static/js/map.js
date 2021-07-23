@@ -136,9 +136,6 @@ d3.json('/api/mass_shootings').then(function(data) {
   var midwest_layer = L.layerGroup()
   var southeast_layer = L.layerGroup()
   var northeast_layer = L.layerGroup()
-  // console.log(region_data)
-  // L.geoJSON(region_data).addTo(myMap)
-  // console.log(region_data)
 
   for(i=0;i<region_features.length;i++){
   var state_name = region_features[i]["properties"]["NAME"]
@@ -157,53 +154,53 @@ d3.json('/api/mass_shootings').then(function(data) {
   }
   else if(southeast.includes(state_name) === true){
     console.log("se")
-    L.geoJSON(region_features[i],{color:"white"}).addTo(southeast_layer)
+    L.geoJSON(region_features[i],{color:"green"}).addTo(southeast_layer)
   }
   else if(northeast.includes(state_name) === true) {
     console.log("ne")
     L.geoJSON(region_features[i],{color:"blue"}).addTo(northeast_layer)
 
   }}
-  // L.geoJSON(region_features[0]).addTo(myMap).bindPopup(state_name)
 
-  // console.log(region_features[0]["geometry"])
-  // L.polygon(region_features[0]["geometry"]["coordinates"][0],{color:"blue"}).addTo(myMap)
-  // console.log(data)
-var circles = L.layerGroup()
+  var circles = L.layerGroup()
 var circles_2 = L.layerGroup()
 for(i=0;i<data.length;i++){
-  // console.log(data[i])
   var victims = data[i]["total_victims"]
   var injuries = data[i]["injured"]
   var fatalities = data[i]["fatalities"]
-  // console.log(data[i])
   var location = data[i]["location"]
   var latitude = data[i]["latitude"]
   var longitude = data[i]["longitude"]
-  // console.log(victims,injuries,fatalities,location,latitude,longitude)
-  L.circleMarker([latitude,longitude],{radius:Math.sqrt(victims*10),opacity:0.5,color:"red",popupAnchor: [0, -50]}).addTo(circles).bindPopup(
-    `<h3>Total Victims:${victims}</h3>`
+  var state = data[i]["state"]
+  var city = data[i]["city"]
+  myMap.createPane("locationMarker");
+  myMap.getPane("locationMarker").style.zIndex = 997;
+  myMap.createPane("top_marker");
+  myMap.getPane("top_marker").style.zIndex = 998;;
+  myMap.createPane("popup");
+  myMap.getPane("popup").style.zIndex = 999;
+  L.circleMarker([latitude,longitude],{radius:Math.sqrt(victims*10),opacity:1,color:"orange",stroke:"orange",pane:"locationMarker"}).addTo(circles).bindPopup(
+    `<h3><strong>Total Victims:</strong> ${victims}  <br> <strong>State:</strong> ${state}<br> <strong>City:</strong> ${city} </h3>`,{pane:"popup"}
   )
-  L.circleMarker([latitude,longitude],{radius:Math.sqrt(fatalities*10),opacity:0.25,color:"orange",popupAnchor: [0, -30]}).addTo(circles_2).bindPopup(
-    `<h3>Injuries${fatalities}</h3>`
+  L.circleMarker([latitude,longitude],{radius:Math.sqrt(fatalities*10),opacity:1,color:"red",pane:"top_marker"}).addTo(circles_2).bindPopup(
+    `<h3><strong>Fatalities:</strong> ${fatalities} <br> <strong>State:</strong> ${state}<br> <strong>City:</strong> ${city} </h3>`,{pane:"popup"}
   )
 
 }
-// L.polygon(region_features[0]["geometry"]["coordinates"][0],{color:"blue"}).addTo(myMap)
-// console.log(region_features)
-
+circles_2.addTo(myMap)
 circles.addTo(myMap)
-final_b_layers = {"US West":west_layer,
+final_b_layers = {"Fatalities":circles_2,
+"Injuries":circles,
+"US West":west_layer,
 "US NorthEast":northeast_layer,
 "US SouthEast":southeast_layer,
 "US MidWest": midwest_layer,
 "US SouthWest": southwest_layer,
-"Fatalities":circles_2,
-"Injuries":circles}
+}
 
 circles_test = {"Fatalities":circles_2,
                 "Injuries":circles}
-L.control.layers(null,final_b_layers).addTo(myMap)
+L.control.layers(null,final_b_layers,{autoZIndex:false}).addTo(myMap)
 
 })
 var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
