@@ -23,9 +23,9 @@ Visualizations include:
 ![map_1](https://user-images.githubusercontent.com/78937358/127575576-c2532ecc-2f48-4d98-807a-5786dc84e0be.png)
 ## Region Map
 ![map_2](https://user-images.githubusercontent.com/78937358/127575577-a611f944-254c-4bf6-b8fd-56957006217a.png)
+## Axes 
+![axes](https://user-images.githubusercontent.com/78937358/127575578-ad61a3bf-3b3c-443e-ac6a-27b1c14df545.png)
 ## Data 
 ![data](https://user-images.githubusercontent.com/78937358/127575579-64a499f5-75bd-476b-9af7-f621645dff62.png)
 ## JSON Data
 ![json](https://user-images.githubusercontent.com/78937358/127575575-e745a785-4c2e-47f8-8308-6d2fa124c028.png)
-## Axes 
-![axes](https://user-images.githubusercontent.com/78937358/127575578-ad61a3bf-3b3c-443e-ac6a-27b1c14df545.png)
