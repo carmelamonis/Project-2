@@ -1,5 +1,6 @@
-# Project-2
-## Mass Shootings Visualizations (1982 -2021)
+# Mass Shootings Visualizations (1982 -2021)
+
+## Background
 ---
 Mass shootings have a profound effect on victims and society as a whole impacting citizens’ mental health, anxiety, and their perceptions of safety.  They are alarming because of the randomness of their nature and the motive is often unknown.  According to the Washington Post, 2020 was the deadliest gun violence year in decades.  So far, 2021 is worse.
 
